@@ -1,0 +1,29 @@
+[project]
+name = "stroke-prediction"
+version = "0.1.0"
+description = "Default template for PDM package"
+authors = [
+    {name = "gregorywmorris", email = "gwm1980@gmail.com"},
+]
+dependencies = [
+    "pandas>=2.2.2",
+    "scikit-learn>=1.4.2",
+    "bentoml>=1.2.11",
+    "imblearn>=0.0",
+    "xgboost>=2.0.3",
+    "catboost>=1.2.3",
+    "writefile>=0.2",
+    "seaborn>=0.13.2",
+    "ipykernel>=6.29.4",
+    "requests>=2.31.0",
+    "wget>=3.2",
+    "scikit-plot>=0.3.7",
+    "scipy==1.11.4",
+]
+requires-python = "==3.11.*"
+readme = "README.md"
+license = {text = "NONE"}
+
+
+[tool.pdm]
+distribution = false

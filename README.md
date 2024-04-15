@@ -1,48 +1,38 @@
 # Stroke Prediction Project
 
-**Files**
-* Repository Description: `README.md` *this file
-* Data Documentation: `DATA.md` 
-* Conda enviroment: `requirements.txt` - used to create conda envirment with `conda create --name <env> --file requirements.txt`. 
-  * **Note:** this is not the right format for pip. 
-* Notebook: `notebook.ipynb`
-* Data: `healthcare-dataset-stroke-data.csv`
-* ML script: `service.py`
-  * **Note:** Model is saved locally via bentoml 
-* Dependency and enviroment management: `bentofile.yaml`
-* Standalone Model Creation Script: `training.py`
-
 ## Problem Statement
 
 ### By the Numbers
 
-**Global:** Strokes are a global epidemic. They are the second leading cause of death and have increased by 70% between 1990 to 2019, with death from strokes inceasing by 43% (source). The WHO estimates the annual cost of strokes to be over US$721 billion (source).
+**Global:** Strokes are a global epidemic. They are the second leading cause of death and have increased by 70% between 1990 to 2019, with death from strokes increasing by 43% [source](https://www.world-stroke.org/news-and-blog/news/wso-global-stroke-fact-sheet-2022#:~:text=From%201990%20to%202019%2C%20the,residing%20in%20lowerincome%20and%20lower%2D). The WHO estimates the annual cost of strokes to be over US$721 billion [source](https://pubmed.ncbi.nlm.nih.gov/34986727/#:~:text=Abstract,%25%20of%20the%20global%20GDP).
 
-**United State:** While strokes have been declining for decades in the US, it still has a large financial burden, amounting to $53 billion annually (source). Currently, stroke is the 5th leading cause of death in the US.
-
-### Optimal Outcomes
-
-**Model Goal:** To predict stroke likely patients.
-
-**Global:** Predicting a stroke can provide an opportunity to take corrective actions before a stroke occurs. Most importantly, resulting in fewer deaths and disabilities.
-
-Additionally, the money lost to strokes would boost economies. Assuming cost and stroke occurrence are linear, if strokes were reduced by just 5%, that would inject $36 billion into world economies.
-
-**United State:** And $2.65 billion into the US economy.
+**United States:** While strokes have been declining for decades in the US, they still have a large financial burden, amounting to ~$34-65 billion annually [Source 1](https://www.ahajournals.org/doi/pdf/10.1161/STR.0b013e31829734f2), [Source 2](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8105541/), [source 3](https://www.dovepress.com/short--and-longer-term-health-care-resource-utilization-and-costs-asso-peer-reviewed-fulltext-article-CEOR). Currently, stroke is the 5th leading cause of death in the US [source](https://www.stroke.org/en/about-stroke).
 
 ### Machine Learning (ML)
-**Machine Learning goal:**
+
+#### Machine Learning Goal
 
 Provide stroke risk prediction so that people may understand their risk rate in a meaningful manner. Predictions will be Low, Moderate, and High. These values were chosen because they would provide better context to the average person rather than a risk percentage. For example, a risk of 15% may not be clear if it is a need for concern or not. 
 
-**Why Machine Learning?**
+#### Why Machine Learning?
 
 ML is best suited for complex problems that are not answered by simple logic. In healthcare, disease epidemiology is often complex and our understanding changing. This makes diseases, such as stroke, prime candidates for ML.
 
+### Optimal Outcomes
+
+**Model Goal:** To predict stroke patient probability.
+
+**Global:** Predicting a stroke can provide an opportunity to take corrective actions before a stroke occurs. Most importantly, this results in fewer deaths and disabilities.
+
+Additionally, the money lost to strokes would boost economies. Assuming cost and stroke occurrence are linear, if strokes were reduced by just 5%, that would inject $36 billion into world economies.
+
+**United States:** Add $2.65 billion into the US economy.
+
 ## Instructions
+
 * To access and test the API see the section below `Production App Access`.
-* For a quick review: select `notebook.ipynb` in the respository and scroll.
-* To run: Open `notebook.ipynb` in google Colab (link at top of notebook) recommended.
+* For a quick review: select `notebook.ipynb` in the repository and scroll.
+* To run: Open `notebook.ipynb` in Google Colab (link at top of notebook) recommended.
   * The notebook can be downloaded and run on a local Jupyter instance but it is optimized for Google Colab for review purposes.  
   * In Colab select `Runtime` from the top menu, then `Run All`.
   * A popup will appear, select `Run Anyways`. 
@@ -176,3 +166,15 @@ Possible Responses:
 * "Stroke Risk: LOW"
 
 ![image](https://user-images.githubusercontent.com/83911983/200917718-c85185b6-d5ae-4f57-90e4-9552ef1a3837.png)
+
+## Files
+
+>* Data Documentation: `DATA.md` 
+>* Conda enviroment: `requirements.txt` - used to create conda envirment with `conda create --name <env> --file requirements.txt`. 
+>* **Note:** this is not the right format for pip. 
+>* Notebook: `notebook.ipynb`
+>* Data: `healthcare-dataset-stroke-data.csv`
+>* ML script: `service.py`
+>  * **Note:** Model is saved locally via bentoml 
+>* Dependency and enviroment management: `bentofile.yaml`
+>* Standalone Model Creation Script: `training.py`
