@@ -1,4 +1,6 @@
 
+# Script to train and save model
+
 from sklearn.model_selection import train_test_split
 from sklearn.svm import SVC
 from sklearn.feature_extraction import DictVectorizer
@@ -6,13 +8,13 @@ from imblearn.over_sampling import SMOTE
 import bentoml
 
 
-df = pd.read_csv('healthcare-dataset-stroke-data.csv') # csv must be in same directory
+df = pd.read_csv('clean_stroke_data.csv') # csv must be in same directory
 
+# data split
 df_train, df_test = train_test_split(df, test_size=0.2, random_state=1)
 
 df_train = df_train.reset_index(drop=True)
 df_test = df_test.reset_index(drop=True)
-
 
 y_train = df_train.stroke.values
 y_test = df_test.stroke.values
@@ -37,15 +39,15 @@ def training_smote(x,y):
     return x_train, y_train
 
 # SMOTE
-x_train, y_train = training_smote(x_train, y_train)
+x_train_smt, y_train_smt = training_smote(x_train, y_train)
 len(x_train), len(y_train)
 
 # Train model
-model = SVC(probability=True,random_state=10)
+model = LinearDiscriminantAnalysis(solver='svd')
 
-model.fit(x_train, y_train)
+model.fit(x_trai_smt, y_train_smt)
 
-bentoml.sklearn.save_model('stroke_prediction', model, 
+bentoml.sklearn.save_model('stroke_prediction', model,
                            custom_objects={
                                'dicVectorizer': dv
                            },
