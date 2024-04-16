@@ -30,71 +30,86 @@ Additionally, the money lost to strokes would boost economies. Assuming cost and
 
 ## Instructions
 
-* To access and test the API see the section below `Production App Access`.
-* For a quick review: select `notebook.ipynb` in the repository and scroll.
-* To run: Open `notebook.ipynb` in Google Colab (link at top of notebook) recommended.
-  * The notebook can be downloaded and run on a local Jupyter instance but it is optimized for Google Colab for review purposes.  
-  * In Colab select `Runtime` from the top menu, then `Run All`.
-  * A popup will appear, select `Run Anyways`. 
-  
-### notebook.ipynb
-
-* **The notebook has been optimized for Google Colab**
-
-* Throughout this notebook you will find links to further understanding or clarification of various concepts. 
-
-* Dataprep may fail (though appears resolved recently) and give the error: `TypeError: Callbacks must be either Callback or tuple`, this means the kernal needs to be restarted, see !pip below.
-
-* **!pip:** Check !pip for alerts stating the kernal needs to restart. If you see this alert, just click the `Restart Runtime` button provided by the error. This is an issue with Google colab and `!pip install dask` is the culprit. Click Yes on the popup and then go ahead and run it all again.
-
-* **Notebook Index** is your guide to exploring the notebook and has links to different sections. Alternatively, you can expand the hamburger icon on the left pane.
-
 ### Environment
-* see `notebook.ipynb` section!PIP
-  
-### Containerization with BentoML: 
 
-* Build bento: `bentoml build`
-* Docker container: `bentoml containerize [bento name:code given after 'bentoml build']`
-* Make sure docker service is running if setting up locally. Then run this command line:
-`run docker contianer: docker run -it --rm -p 3000:3000 [bento name:code given after 'bentoml build'] serve --production`
-  
-### Cloud deployment: 
-  1. log in to AWS Console 
-  2. Go to Elastic Container Registry. Select `Create Registry`.
-  3. In the registry select `View push commands`
-   * On local Windows PC use GitBash and follow macOS/Linux commands.NOTE: Must have AWS CLI installed.
-   * `AWS console`, log in via the prompts.
-   * `aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin [censored].dkr.ecr.us-east-1.amazonaws.com`
-   * Skip this command, docker build done though bentoml -> `docker build -t stroke_prediction .` 
-   * `docker tag stroke_prediction:latest [censored].dkr.ecr.us-east-1.amazonaws.com/stroke_prediction:latest`
-   *  `docker push [censored].dkr.ecr.us-east-1.amazonaws.com/stroke_prediction:latest`
-  4. Move to Elastic Container Service, then Select `Create new Task Definition`.
-   * Follow prompts, and be sure to select the image uploaded to the registry.
-   * Then select `Create`
-  5. Select `Clusters` on the left pane, then Select `create cluster`. 
-   * Follow the prompts to create a cluster
-   * Select the cluster
-   * Select `Services` and then `Create`
-   * Follow the prompts and select the created task.
-      * Set security group to allow public access to port 3000.
-      * Select `Run Service`
+1. Pipenv
+    - `python -m venv .venv`
+    - Linux
+        - `source .venv/bin/activate`
+    - Windows
+        - `.venv\Scripts\activate`
+1. Anaconda or Miniconda
+    - Using Anaconda or Miniconda is strongly advised.
+    - [Anaconda installation instructions](https://docs.anaconda.com/free/anaconda/install/index.html) if not already installed.
+    - [Miniconda installation instructions](https://docs.anaconda.com/free/miniconda/)
+    - `conda create -n stroke`
+
+> [!TIP]
+> In VS code, **Ctrl+Shift+p** pulls up option to select Python interpreter.
+
+#### After activating environment
+
+- PDM `.toml` file is in the main directory.
+    1. Activate environment of choice.
+    1. `pip install pdm`
+    1. `pdm install`
+
+### notebooks
+
+1. Run All for 1_data_cleaning.ipynb
+1. Run All for 2_modeling.ipynb
+
+* Throughout the notebooks you will find links to further understanding or clarification of various concepts.
+
+### Containerization with BentoML
+
+1. Build bento: `bentoml build`
+1. Docker container: `bentoml containerize [bento name:code given after 'bentoml build']`
+1. Make sure docker service is running if setting up locally. Then run this command line:
+    ```bash
+    docker run -it --rm -p 3000:3000 [bento name:code given after 'bentoml build'] serve --production
+    ```
+
+1. All created Bentos are stored in `/home/user/bentoml/bentos/` by default.
+
+### Cloud deployment
+
+1. log in to AWS Console
+1. Go to Elastic Container Registry. Select `Create Registry`.
+1. In the registry select `View push commands`
+    * On local Windows PC use GitBash and follow macOS/Linux commands.NOTE: Must have AWS CLI installed.
+    * `AWS console`, log in via the prompts.
+    * `aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin [censored].dkr.ecr.us-east-1.amazonaws.com`
+    * Skip this command, docker build done though bentoml -> `docker build -t stroke_prediction .` 
+    * `docker tag stroke_prediction:latest [censored].dkr.ecr.us-east-1.amazonaws.com/stroke_prediction:latest`
+    *  `docker push [censored].dkr.ecr.us-east-1.amazonaws.com/stroke_prediction:latest`
+1. Move to Elastic Container Service, then Select `Create new Task Definition`.
+    * Follow prompts, and be sure to select the image uploaded to the registry.
+    * Then select `Create`
+1. Select `Clusters` on the left pane, then Select `create cluster`. 
+    * Follow the prompts to create a cluster
+    * Select the cluster
+    * Select `Services` and then `Create`
+    * Follow the prompts and select the created task.
+        * Set security group to allow public access to port 3000.
+        * Select `Run Service`
 
 ## Production App Access
 
-**Instructions**
+### Instructions
 
-1.) To access the production site using port 3000.
+1. To access the production site using port 3000.
 
-2.) Select POST then Try it out on the right of the POST section.
+1. Select POST then Try it out on the right of the POST section.
 
 ![image](https://user-images.githubusercontent.com/83911983/200917321-a0adb65c-1972-48b0-a90b-36bb2e35ad7d.png)
 
-3.) In the Request body enter patient information based on the template or use the example patient. Select Execute.
+1. In the Request body enter patient information based on the template or use the example patient. Select Execute.
 
 ![image](https://user-images.githubusercontent.com/83911983/200917598-1bb98d39-258f-46c5-8039-934e4840c4ca.png)
 
-**Template**
+### Template
+
 * All values must be filled in.
 * Strings must be within double quotes " "
 * Float values must be in format 0.0
