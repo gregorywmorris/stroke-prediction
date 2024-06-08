@@ -74,24 +74,24 @@ Additionally, the money lost to strokes would boost economies. Assuming cost and
 
 ### Cloud deployment
 
-1. log in to AWS Console
-1. Go to Elastic Container Registry. Select `Create Registry`.
+1. log into the AWS Console
+1. Go to Elastic Container Registry. Select `Create Registry`
 1. In the registry select `View push commands`
-    * On local Windows PC use GitBash and follow macOS/Linux commands.NOTE: Must have AWS CLI installed.
-    * `AWS console`, log in via the prompts.
+    * On local Windows PC use GitBash and follow macOS/Linux commandsNOTE: Must have AWS CLI installed
+    * `AWS console`, log in via the prompts
     * `aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin [censored].dkr.ecr.us-east-1.amazonaws.com`
-    * Skip this command, docker build done though bentoml -> `docker build -t stroke_prediction .` 
+    * Skip this command, docker build done though bentoml -> `docker build -t stroke_prediction .`
     * `docker tag stroke_prediction:latest [censored].dkr.ecr.us-east-1.amazonaws.com/stroke_prediction:latest`
     *  `docker push [censored].dkr.ecr.us-east-1.amazonaws.com/stroke_prediction:latest`
-1. Move to Elastic Container Service, then Select `Create new Task Definition`.
+1. Move to Elastic Container Service, then Select `Create new Task Definition`
     * Follow prompts, and be sure to select the image uploaded to the registry.
     * Then select `Create`
-1. Select `Clusters` on the left pane, then Select `create cluster`. 
+1. Select `Clusters` on the left pane, then Select `create cluster`
     * Follow the prompts to create a cluster
     * Select the cluster
     * Select `Services` and then `Create`
-    * Follow the prompts and select the created task.
-        * Set security group to allow public access to port 3000.
+    * Follow the prompts and select the created task
+        * Set security group to allow public access to port 3000
         * Select `Run Service`
 
 ## Production App Access
